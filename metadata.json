@@ -1,0 +1,5 @@
+{
+  "name": "Sahal Movie Streaming",
+  "description": "An Angular-based web application for streaming Somali cinema. Discover new releases, popular movies, and special selections in a beautifully designed interface.",
+  "requestFramePermissions": []
+}

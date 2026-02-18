@@ -1,0 +1,96 @@
+
+<!-- Navbar -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-[2px]">
+  <div class="px-6 md:px-12 py-4 flex items-center justify-between max-w-[1600px] mx-auto w-full">
+    <!-- Logo & Nav Links -->
+    <div class="flex items-center gap-12">
+      <a class="flex items-center gap-2 group" href="#">
+        <span class="material-symbols-outlined text-primary text-3xl">movie_filter</span>
+        <h1 class="text-white text-2xl font-black tracking-tighter group-hover:text-primary transition-colors">SAHAL</h1>
+      </a>
+      <nav class="hidden lg:flex items-center gap-8">
+        <a class="text-white text-sm font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">Home</a>
+        <a class="text-gray-300 text-sm font-medium hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full" href="#">Movies</a>
+        <a class="text-gray-300 text-sm font-medium hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full" href="#">Categories</a>
+        <a class="text-gray-300 text-sm font-medium hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full" href="#">Contact</a>
+      </nav>
+    </div>
+    <!-- Action Icons -->
+    <div class="flex items-center gap-4">
+      <button (click)="openSearch()" class="text-gray-300 hover:text-primary transition-colors p-2 rounded-full hover:bg-white/5">
+        <span class="material-symbols-outlined">search</span>
+      </button>
+      <button class="text-gray-300 hover:text-primary transition-colors p-2 rounded-full hover:bg-white/5">
+        <span class="material-symbols-outlined">notifications</span>
+      </button>
+      <button class="flex items-center gap-2 text-white hover:text-primary transition-colors pl-2">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-orange-500 flex items-center justify-center text-xs font-bold border border-white/20">
+          AH
+        </div>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Main Routed Content -->
+<router-outlet></router-outlet>
+
+<!-- Footer -->
+<footer class="bg-black/50 border-t border-white/10 pt-16 pb-8">
+  <div class="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div class="col-span-1 md:col-span-1">
+        <a class="flex items-center gap-2 mb-6" href="#">
+          <span class="material-symbols-outlined text-primary text-3xl">movie_filter</span>
+          <h2 class="text-white text-2xl font-black tracking-tighter">SAHAL</h2>
+        </a>
+        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+          Sahal is the premier destination for Somali cinema. We bring stories from home to screens worldwide.
+        </p>
+        <div class="flex gap-4">
+          <a class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary hover:text-white text-gray-400 flex items-center justify-center transition-all" href="#">
+            <span class="font-bold text-xs">FB</span>
+          </a>
+          <a class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary hover:text-white text-gray-400 flex items-center justify-center transition-all" href="#">
+            <span class="font-bold text-xs">IG</span>
+          </a>
+          <a class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary hover:text-white text-gray-400 flex items-center justify-center transition-all" href="#">
+            <span class="font-bold text-xs">TW</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-6">Explore</h3>
+        <ul class="flex flex-col gap-3 text-sm text-gray-400">
+          <li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Movies</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">TV Shows</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-6">Support</h3>
+        <ul class="flex flex-col gap-3 text-sm text-gray-400">
+          <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-6">Subscribe</h3>
+        <p class="text-gray-400 text-sm mb-4">Get the latest updates on new releases.</p>
+        <form class="flex gap-2">
+          <input class="bg-white/5 border border-white/10 text-white text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary w-full" placeholder="Email address" type="email" />
+          <button class="bg-primary hover:bg-red-700 text-white rounded-lg px-4 py-2.5 transition-colors" type="submit">
+            <span class="material-symbols-outlined text-sm">send</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-gray-500 text-sm">© 2024 SAHAL Streaming. All rights reserved.</p>
+      <p class="text-gray-600 text-xs">Made with love for Somali Cinema.</p>
+    </div>
+  </div>
+</footer>

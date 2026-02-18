@@ -1,0 +1,316 @@
+
+<main class="flex-grow flex flex-col w-full">
+  <!-- Search Modal -->
+  @if (movieService.isSearchOpen()) {
+  <div
+    class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex justify-center animate-fade-in"
+  >
+    <div class="w-full max-w-3xl pt-20 px-4">
+      <!-- Search Input & Close Button -->
+      <div class="relative flex items-center mb-8">
+        <span class="material-symbols-outlined absolute left-4 text-gray-400"
+          >search</span
+        >
+        <input
+          type="text"
+          placeholder="Search for movies, genres, or years..."
+          class="w-full bg-white/10 border border-white/20 rounded-full py-4 pl-12 pr-16 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+          autofocus
+          [value]="movieService.searchQuery()"
+          (input)="movieService.onSearch($event)"
+        />
+        <button
+          (click)="movieService.closeSearch()"
+          class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-white transition-colors"
+        >
+          <span class="material-symbols-outlined text-3xl">close</span>
+        </button>
+      </div>
+
+      <!-- Search Results -->
+      <div class="overflow-y-auto max-h-[calc(100vh-200px)] no-scrollbar">
+        @if (movieService.searchQuery().trim() === '') {
+        <div
+          class="text-center text-gray-400 py-16 flex flex-col items-center"
+        >
+          <span class="material-symbols-outlined text-6xl mb-4">movie</span>
+          <p>Start typing to find your next favorite movie.</p>
+        </div>
+        } @else { @if (movieService.searchResults().length > 0) {
+        <div class="flex flex-col gap-4 animate-fade-in">
+          @for (movie of movieService.searchResults(); track movie.title) {
+          <a
+            [routerLink]="['/movie', movie.title]"
+            (click)="movieService.closeSearch()"
+            class="flex items-center gap-4 bg-card-dark/60 p-3 rounded-lg border border-white/10 hover:border-primary/50 transition-all cursor-pointer"
+          >
+            <img
+              [src]="movie.imageUrl"
+              alt="{{ movie.title }}"
+              class="w-16 h-24 object-cover rounded-md"
+            />
+            <div class="flex-grow">
+              <h3 class="text-lg font-bold text-white">{{ movie.title }}</h3>
+              <div class="flex items-center gap-2 mt-1 text-sm text-gray-400">
+                <span>{{ movie.year }}</span>
+                <span class="w-1 h-1 bg-gray-500 rounded-full"></span>
+                <span>{{ movie.genre }}</span>
+              </div>
+            </div>
+            @if (movie.rating) {
+            <div class="flex items-center gap-1 text-yellow-500 font-bold">
+              <span class="material-symbols-outlined text-base fill">star</span>
+              <span>{{ movie.rating }}</span>
+            </div>
+            }
+          </a>
+          }
+        </div>
+        } @else {
+        <div
+          class="text-center text-gray-400 py-16 flex flex-col items-center"
+        >
+          <span class="material-symbols-outlined text-6xl mb-4"
+            >search_off</span
+          >
+          <p>No results found for "{{ movieService.searchQuery() }}"</p>
+        </div>
+        } }
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Hero Section -->
+  <section
+    class="relative w-full h-[85vh] min-h-[600px] flex items-end pb-20 overflow-hidden"
+  >
+    <!-- Hero Background Image -->
+    <div class="absolute inset-0 w-full h-full z-0">
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/60 to-transparent z-10"
+      ></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-background-dark via-transparent to-transparent z-10"
+      ></div>
+      <div
+        class="w-full h-full bg-cover bg-center"
+        style="background-image: url('https://m.media-amazon.com/images/M/MV5BOWNlY2VmYmEtYmEzMi00MDRkLTk1MmUtZmU1MDRhZWI5YTk2XkEyXkFqcGdeQXVyMTU2MDQxMDU4._V1_.jpg');"
+      ></div>
+    </div>
+    <!-- Hero Content -->
+    <div
+      class="relative z-20 px-6 md:px-12 w-full max-w-[1600px] mx-auto flex flex-col gap-6 items-start"
+    >
+      <span
+        class="px-3 py-1 bg-primary/20 border border-primary/30 text-primary text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-sm"
+      >
+        Premiering Now
+      </span>
+      <div class="max-w-3xl">
+        <h1
+          class="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tight mb-4 drop-shadow-2xl"
+        >
+          Ku Soo Dhawoow <span class="text-primary">SAHAL</span>
+        </h1>
+        <p
+          class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed max-w-2xl drop-shadow-md"
+        >
+          Goobta ugu fiican ee aad ka heli karto filimaan tayo sare leh oo
+          Af-Soomaali ah. Enjoy unlimited streaming of the best Somali cinema.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4 mt-4">
+        <button
+          class="flex items-center gap-2 bg-primary hover:bg-red-700 text-white px-8 py-3.5 rounded-lg font-bold text-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(238,43,52,0.4)]"
+        >
+          <span class="material-symbols-outlined fill">play_arrow</span>
+          Daawo Hadda
+        </button>
+        <button
+          class="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-6 py-3.5 rounded-lg font-bold text-lg transition-all border border-white/10"
+        >
+          <span class="material-symbols-outlined">info</span>
+          Faahfaahin Dheeraad Ah
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Lists Container -->
+  <div
+    class="flex flex-col gap-12 pb-20 -mt-10 relative z-30 px-6 md:px-12 max-w-[1600px] mx-auto w-full"
+  >
+    <!-- Section 1: New This Week -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
+          <span class="w-1.5 h-8 bg-primary rounded-full block"></span>
+          Filimaan Cusub Todobaadkan
+        </h2>
+        <a
+          class="text-sm font-semibold text-primary hover:text-white transition-colors flex items-center gap-1 group"
+          href="#"
+        >
+          View All
+          <span
+            class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform"
+            >arrow_forward</span
+          >
+        </a>
+      </div>
+      <div class="relative group/slider">
+        <div
+          class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory no-scrollbar scroll-smooth"
+        >
+          @for (movie of movieService.newThisWeek(); track movie.title) {
+          <a
+            [routerLink]="['/movie', movie.title]"
+            class="movie-card min-w-[160px] md:min-w-[220px] relative rounded-lg overflow-hidden cursor-pointer snap-start bg-card-dark shadow-lg group"
+          >
+            <div class="aspect-[2/3] w-full overflow-hidden relative">
+              <div
+                class="movie-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+                [style.backgroundImage]="'url(' + movie.imageUrl + ')'"
+              ></div>
+              <div
+                class="play-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center"
+              >
+                <span
+                  class="material-symbols-outlined text-5xl text-primary drop-shadow-lg scale-110 fill"
+                  >play_circle</span
+                >
+              </div>
+              @if(movie.badge) {
+              <div
+                class="absolute top-2 left-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase"
+              >
+                {{ movie.badge }}
+              </div>
+              }
+            </div>
+            <div class="p-3">
+              <h3 class="text-white font-bold text-base truncate">
+                {{ movie.title }}
+              </h3>
+              <div class="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                <span>{{ movie.year }}</span>
+                <span class="w-1 h-1 bg-gray-500 rounded-full"></span>
+                <span>{{ movie.genre }}</span>
+              </div>
+            </div>
+          </a>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Most Watched -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
+          <span class="w-1.5 h-8 bg-primary rounded-full block"></span>
+          Kuwa Ugu Daawashada Badan
+        </h2>
+      </div>
+      <div class="relative group/slider">
+        <div
+          class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory no-scrollbar scroll-smooth"
+        >
+          @for (movie of movieService.mostWatched(); track movie.title) {
+          <a
+            [routerLink]="['/movie', movie.title]"
+            class="movie-card min-w-[160px] md:min-w-[220px] relative rounded-lg overflow-hidden cursor-pointer snap-start bg-card-dark shadow-lg group"
+          >
+            <div class="aspect-[2/3] w-full overflow-hidden relative">
+              <div
+                class="movie-image absolute inset-0 bg-cover bg-center transition-transform duration-500"
+                [style.backgroundImage]="'url(' + movie.imageUrl + ')'"
+              ></div>
+              <div
+                class="play-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex items-center justify-center"
+              >
+                <span
+                  class="material-symbols-outlined text-5xl text-primary drop-shadow-lg scale-110 fill"
+                  >play_circle</span
+                >
+              </div>
+              @if (movie.rating) {
+              <div
+                class="absolute top-2 right-2 bg-yellow-500 text-black text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-[10px] fill"
+                  >star</span
+                >
+                {{ movie.rating }}
+              </div>
+              }
+            </div>
+            <div class="p-3">
+              <h3 class="text-white font-bold text-base truncate">
+                {{ movie.title }}
+              </h3>
+              <div class="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                <span>{{ movie.year }}</span>
+                <span class="w-1 h-1 bg-gray-500 rounded-full"></span>
+                <span>{{ movie.genre }}</span>
+              </div>
+            </div>
+          </a>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Special Selection -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
+          <span class="w-1.5 h-8 bg-primary rounded-full block"></span>
+          Xulasho Gaar Ah
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for(selection of movieService.specialSelections(); track
+        selection.title; let i = $index) {
+        <div
+          class="relative rounded-xl overflow-hidden aspect-video group cursor-pointer border border-white/5 hover:border-primary/50 transition-colors"
+          [class.hidden]="i === 2"
+          [class.lg:block]="i === 2"
+        >
+          <div
+            class="movie-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+            [style.backgroundImage]="'url(' + selection.imageUrl + ')'"
+          ></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"
+          ></div>
+          <div class="absolute bottom-0 left-0 p-6 w-full">
+            <span
+              class="text-primary text-xs font-bold uppercase tracking-widest mb-2 block"
+              >{{ selection.category }}</span
+            >
+            <h3
+              class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors"
+            >
+              {{ selection.title }}
+            </h3>
+            <p class="text-gray-300 text-sm line-clamp-2 mb-4">
+              {{ selection.description }}
+            </p>
+            <button
+              class="flex items-center gap-2 text-white text-sm font-bold group/btn"
+            >
+              Daawo
+              <span
+                class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </button>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</main>
